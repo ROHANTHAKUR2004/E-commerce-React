@@ -1,14 +1,15 @@
 
 import './App.css'
+import Header from './components/Navbar/Header'
 
 function App() {
   
 
   return (
     <>
-      <h1>Shopp</h1>
+      <Header color="white" light={true} expand="md" fixed="top" container="md"/>
     </>
   )
 }
 
-export default App
+export default App;
