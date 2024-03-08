@@ -2,7 +2,7 @@
 import './App.css'
 import Header from './components/Navbar/Header'
 import Footer from './components/Navbar/footer/Footer';
-import Home from './pages/home/Home';
+import MainRoutes from './routes/MainRoutes';
 
 function App() {
   
@@ -10,7 +10,7 @@ function App() {
   return (
     <div className='app-wrapper'>
       <Header color="white" light={true} expand="md"  container="md"/>
-        <Home/>
+        <MainRoutes/>
       <Footer/>
     </div>
   )
