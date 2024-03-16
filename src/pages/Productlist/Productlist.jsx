@@ -40,6 +40,7 @@ return(
             
 
                  {productlist && productlist.map((product) => <Productbox 
+                             productId={product.id}
                              key={product.id}
                              Productimg={product.image} 
                              name={product.title} 
