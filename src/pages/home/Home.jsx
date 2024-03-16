@@ -26,7 +26,7 @@ export default function Home(){
                
 
                 <Categoryitem itemName="All Products"/>
-                {categoryies &&  categoryies.map(category => <Categoryitem itemName={category} key={category}/>
+                {categoryies &&  categoryies.map(category => <Categoryitem itemName={category} key={category} filter={category}/>
 )}
 
             </div>

@@ -6,6 +6,8 @@
 
 .product-list-box {
     flex-basis: 80%;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .product-list-box .product-item {
@@ -26,7 +28,7 @@ img {
 }
 
 .product-list-box .product-item .product-name {
-    font-size: 1.5rem;
+    font-size: 1rem;
     color: black;
     padding: 0.75rem 0;
 }

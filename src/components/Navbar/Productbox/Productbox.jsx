@@ -5,7 +5,7 @@ export default function Productbox({Productimg , name, price}){
     return(
         <Link to="/product/2"
         href="productDetails.html"  
-        className="product-item text-decoration-none d-inline-block">
+        className="product-item text-decoration-none">
         <div className="product-img">
             <img src={Productimg} alt="" />
         </div>

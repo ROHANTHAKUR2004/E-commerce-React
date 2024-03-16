@@ -1,8 +1,32 @@
 import './Productlist.css'
-import Productimg from '../../assets/product.avif'
+//import Productimg from '../../assets/product.avif'
 import Productbox from '../../components/Navbar/Productbox/Productbox';
 import FilterProduct from '../../components/Filterproduct/FilterProduct';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useSearchParams } from 'react-router-dom';
+
+
 export default function Productlist(){
+
+
+      const [productlist , setproductlist] = useState(null);
+      const [query] = useSearchParams();
+
+
+      async function getproducts(category){
+
+        const downloadurl = category ? `https://fakestoreapi.com/products/category/${category}` : `https://fakestoreapi.com/products` ;
+
+        const response = await axios.get(downloadurl)
+        setproductlist(response.data)
+      }
+
+      useEffect(()=>{
+           getproducts(query.get("category"));
+      },[]);
+
+
 return(
      <div className='container'>
         <div className='row'>
@@ -13,8 +37,15 @@ return(
           
            {/* list of products */}
             <div className="product-list-box" id="productList">
-                
-                 <Productbox  Productimg={Productimg} name={"dummy"} price={1000}/>
+            
+
+                 {productlist && productlist.map((product) => <Productbox 
+                             key={product.id}
+                             Productimg={product.image} 
+                             name={product.title} 
+                             price={product.price}
+                             />
+                             )}
            
             </div>
 
