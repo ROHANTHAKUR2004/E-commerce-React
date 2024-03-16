@@ -1,6 +1,22 @@
+import { useEffect, useState } from 'react'
 import Categoryitem from '../../components/Navbar/Categoryitem/Categoryitem'
 import './Home.css'
+import axios from 'axios'
+import { getAllcategories } from '../../apis/fakestoreprodapis';
 export default function Home(){
+
+
+    const [categoryies , setcategoryies] = useState(null);
+
+    async function downloadcategory() {
+             const response = await axios.get(getAllcategories());
+             setcategoryies(response.data);
+    }
+
+
+    useEffect(()=> {
+           downloadcategory();
+    },[])
 
     return (
         <div className="container welcome-wrap ">
@@ -10,6 +26,8 @@ export default function Home(){
                
 
                 <Categoryitem itemName="All Products"/>
+                {categoryies &&  categoryies.map(category => <Categoryitem itemName={category} key={category}/>
+)}
 
             </div>
             <div className="category-title text-center mt-4">
