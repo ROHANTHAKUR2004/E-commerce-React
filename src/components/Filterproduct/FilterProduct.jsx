@@ -1,9 +1,21 @@
+//import { useEffect, useState } from 'react';
 import './FilterProduct.css';
+//mport axios from 'axios';
+//import { getAllcategories } from '../../apis/fakestoreprodapis';
+import usecategory from '../../hooks/usecategory';
+import { useNavigate } from 'react-router-dom';
 export default function FilterProduct() {
 
        const minPriceoptions = [0,10,20,50,100,200];
        const maxPriceoptions = [0,10,20,50,100,200,1000];
 
+      const [categoryies] = usecategory();
+
+      const navigate = useNavigate();
+
+      function handlecategory(category) {
+             navigate(`/products?category=${category}`)
+      }
 
 
     return (
@@ -18,10 +30,15 @@ export default function FilterProduct() {
         <div className="sidebar-title fw-bold">Categories</div>
         <div id="categoryList">
             {/* <!-- will be populated by JS --> */}
-            <a className='d-flex text-decoration-none'>Electronics</a>
+            {/* <a className='d-flex text-decoration-none'>Electronics</a>
             <a className='d-flex text-decoration-none'>KitchenWare</a>
             <a className='d-flex text-decoration-none'>Mobiles</a>
-            <a className='d-flex text-decoration-none'>Clothes</a>
+            <a className='d-flex text-decoration-none'>Clothes</a> */}
+            {categoryies && categoryies.map((category) =>  <a 
+                                               onClick={() =>handlecategory(category)}
+                                                key={category}
+                                                 className='d-flex text-decoration-none'>
+                                                   {category}</a> )}
         </div>
 
 

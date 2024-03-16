@@ -24,7 +24,7 @@ export default function Productlist(){
 
       useEffect(()=>{
            getproducts(query.get("category"));
-      },[]);
+      },[query]);
 
 
 return(

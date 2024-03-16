@@ -1,22 +1,13 @@
-import { useEffect, useState } from 'react'
+//import { useEffect, useState } from 'react'
 import Categoryitem from '../../components/Navbar/Categoryitem/Categoryitem'
 import './Home.css'
-import axios from 'axios'
-import { getAllcategories } from '../../apis/fakestoreprodapis';
+//import axios from 'axios'
+//import { getAllcategories } from '../../apis/fakestoreprodapis';
+import usecategory from '../../hooks/usecategory';
 export default function Home(){
 
 
-    const [categoryies , setcategoryies] = useState(null);
-
-    async function downloadcategory() {
-             const response = await axios.get(getAllcategories());
-             setcategoryies(response.data);
-    }
-
-
-    useEffect(()=> {
-           downloadcategory();
-    },[])
+      const [categoryies] = usecategory();
 
     return (
         <div className="container welcome-wrap ">
