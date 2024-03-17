@@ -16,7 +16,7 @@ export default function Productlist(){
 
       async function getproducts(category){
 
-        const downloadurl = category ? `https://fakestoreapi.com/products/category/${category}` : `https://fakestoreapi.com/products` ;
+        const downloadurl = category ? `http://localhost:8765/products/category/${category}` : `http://localhost:8765/products` ;
 
         const response = await axios.get(downloadurl)
         setproductlist(response.data)

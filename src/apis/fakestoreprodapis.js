@@ -1,7 +1,7 @@
 export function getAllcategories(){
-    return 'https://fakestoreapi.com/products/categories';
+    return `http://localhost:8765/products/categories`;
 }
 
 export function getsingleprod(id){
-    return `https://fakestoreapi.com/products/${id}`;
+    return `http://localhost:8765/products/${id}`;
 }
