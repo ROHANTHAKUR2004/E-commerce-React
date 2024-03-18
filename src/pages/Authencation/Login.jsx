@@ -15,7 +15,7 @@ export default function Login(){
     const authRef = useRef(null);
      const navigate = useNavigate();
      const [token, setToken] = useCookies(['jwt-token']);
-     const {user ,setuser} = useContext(UserContext);
+     const {setuser} = useContext(UserContext);
       //const {setUser} = useContext(UserContext);
     async function onAuthFormSubmit(formDetails) {
         try {
@@ -23,14 +23,13 @@ export default function Login(){
                 username: formDetails.username,
                 email: formDetails.email,
                 password: formDetails.password
-            },); 
+            },{withCredentials:true}); 
         
             //console.log(response)
             const tokenDetails = jwtDecode(response.data.token)
-            console.log(tokenDetails);
+            //console.log(tokenDetails);
             setuser({username: tokenDetails.user, id: tokenDetails.id});
-    
-            setToken('jwt-token', response.data.token);
+            setToken('jwt-token', response.data.token, {httpOnly: true});
               navigate('/');
         } catch (error) {
             authRef.current.resetFormData();

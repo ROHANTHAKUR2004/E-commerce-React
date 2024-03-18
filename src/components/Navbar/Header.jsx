@@ -17,6 +17,7 @@ import {
 import { useCookies } from 'react-cookie';
 import UserContext from '../../context/UserContext';
 import CartContext from '../../context/CartContext';
+import axios from 'axios';
 
 
 function Header(props){
@@ -56,6 +57,7 @@ const {cart} = useContext(CartContext)
                     //Cookies.remove('jwt-token');
                     //settoken(undefined);
                     removetoken('jwt-token');
+                    axios.get(`http://localhost:8765/logout`, {withCredentials:true})
                     setuser(null);
                   }}
                     to="/signin">Logout</Link> : 
