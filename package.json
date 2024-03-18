@@ -14,10 +14,12 @@
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
     "mdb-react-ui-kit": "^7.2.0",
     "react": "^18.2.0",
     "react-cookie": "^7.1.0",
     "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.13",
     "react-notifications": "^1.7.4",
     "react-router-dom": "^6.22.3",
     "reactstrap": "^9.2.2"

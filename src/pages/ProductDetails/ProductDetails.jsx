@@ -1,24 +1,31 @@
 import { useParams } from 'react-router-dom';
 import './ProductDetails.css';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { getsingleprod } from '../../apis/fakestoreprodapis';
+import CartContext from '../../context/CartContext';
 
 export default function ProductDetails(){
 
     const {id} = useParams();
 
     const[product ,setproduct] = useState(null);
+    const {cart, setcart} = useContext(CartContext);
  
     async function getprod(id){
          const response = await axios.get(getsingleprod(id))
          setproduct(response.data)
-         console.log(response.data);
+         //console.log(response.data);
     } 
+
+    function onaddingproduct(){
+           console.log("onadd prod")
+            setcart({...cart, products :[...cart.products, id]});
+    }
  
        useEffect(() =>{
              getprod(id);
-       })
+       },[])
 
 
 
@@ -44,7 +51,11 @@ export default function ProductDetails(){
                         </div>
                     </div>
 
-                    <div className="product-details-action btn btn-primary text-decoration-non">Add to cart</div>
+                    <div 
+                    onClick={onaddingproduct}
+                    className="product-details-action btn btn-primary text-decoration-non">
+                        Add to cart
+                        </div>
                     <a href="cart.html" id="goToCartBtn" className="product-details-action btn btn-warning text-decoration-none">
                         Go to cart
                     </a>

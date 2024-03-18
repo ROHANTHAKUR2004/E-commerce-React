@@ -1,6 +1,6 @@
 
 import './Header.css';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Collapse,
@@ -15,11 +15,15 @@ import {
   NavbarText,
 } from 'reactstrap';
 import { useCookies } from 'react-cookie';
+import UserContext from '../../context/UserContext';
+import CartContext from '../../context/CartContext';
+
 
 function Header(props){
   const [isOpen, setIsOpen] = useState(false);
   const [token, settoken , removetoken] = useCookies(['jwt-token'])
-
+ const  {user , setuser} = useContext(UserContext);
+const {cart} = useContext(CartContext)
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -44,7 +48,7 @@ function Header(props){
                 Options
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem>Cart</DropdownItem>
+                <DropdownItem>Cart {cart.products.length}</DropdownItem>
                 <DropdownItem>Settings</DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem>
@@ -52,6 +56,7 @@ function Header(props){
                     //Cookies.remove('jwt-token');
                     //settoken(undefined);
                     removetoken('jwt-token');
+                    setuser(null);
                   }}
                     to="/signin">Logout</Link> : 
                       <Link to="/signin">SignIn.</Link>
@@ -59,7 +64,8 @@ function Header(props){
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
-            <NavbarText>UserName</NavbarText>
+             {user && <NavbarText>{user.username}</NavbarText>}
+             {/* <NavbarText>username</NavbarText> */}
           </Nav>
          
         </Collapse>
