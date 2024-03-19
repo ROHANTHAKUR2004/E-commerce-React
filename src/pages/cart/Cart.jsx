@@ -8,17 +8,28 @@ import { useParams } from 'react-router-dom'
 //import usecart from '../../hooks/useCart';
 import { useContext, useEffect } from 'react';
 import CartContext from '../../context/CartContext';
+import axios from 'axios';
+import { getsingleprod } from '../../apis/fakestoreprodapis';
 export default function Cart(){
 
-     const {userid} = useParams();
-     console.log(userid)
+     //const {userid} = useParams();
+     //console.log(userid)
      const {cart} = useContext(CartContext)
 
+
+     async function downloadcardproducts(cart){
+        if(!cart ||  !cart.products) return ;
+        const productsPromise = cart.products.map(product => axios.get(getsingleprod(product.productId)))
+       // console.log(productsPromise)
+        const productPromiseResponse =  await axios.all(productsPromise);
+        console.log(productPromiseResponse)
+     }
   
       
      useEffect(()=>{
-        console.log(cart);
-     },[])
+        //console.log(cart);
+        downloadcardproducts(cart)
+     },[cart])
     return(
         <div className="container">
         <div className="row">

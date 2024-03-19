@@ -16,7 +16,7 @@ export default function Home(){
       const [cart] = usecart(user ? user.id : undefined);
 
       useEffect(()=>{
-         console.log('cart is' , cart)
+         //console.log('cart is' , cart)
       },[user])
 
     return (
