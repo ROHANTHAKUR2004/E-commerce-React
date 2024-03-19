@@ -5,9 +5,13 @@ import Productlist from "../pages/Productlist/Productlist"
 import ProductDetails from "../pages/ProductDetails/ProductDetails"
 import Login from "../pages/Authencation/Login"
 import SignUp from "../pages/Authencation/SignUp"
+import Cart from "../pages/cart/Cart"
+
+
 
 export default function MainRoutes() {
-
+ 
+    
 
     return(
         <Routes>
@@ -17,6 +21,7 @@ export default function MainRoutes() {
         <Route path="/product/:id" element={<ProductDetails/>}/>
         <Route path="/signin" element={<Login/>}/>
         <Route path="/signUp" element={<SignUp/>}/>
+        <Route path="/cart/:userid" element={<Cart/>}/>
         <Route path="*" element={<Error/>} />
         {/*  <Route/> */}
         

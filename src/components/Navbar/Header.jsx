@@ -18,19 +18,23 @@ import { useCookies } from 'react-cookie';
 import UserContext from '../../context/UserContext';
 import CartContext from '../../context/CartContext';
 import axios from 'axios';
+import Cart from '../../pages/cart/Cart';
+//import { jwtDecode } from 'jwt-decode';
 
 
 function Header(props){
   const [isOpen, setIsOpen] = useState(false);
   const [token, settoken , removetoken] = useCookies(['jwt-token'])
  const  {user , setuser} = useContext(UserContext);
-const {cart} = useContext(CartContext)
+ 
+const {cart , setcart} = useContext(CartContext)
 
   const toggle = () => setIsOpen(!isOpen);
 
   useEffect(()=>{
       
   }, [token])
+
   
   return (
     <div>
@@ -49,7 +53,7 @@ const {cart} = useContext(CartContext)
                 Options
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem>Cart {cart.products.length}</DropdownItem>
+               {user && <DropdownItem> <Link to={`/cart/${user.id}`} > Cart { cart && cart.products &&  `(${cart.products.length})`}</Link></DropdownItem>}
                 <DropdownItem>Settings</DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem>
@@ -58,7 +62,8 @@ const {cart} = useContext(CartContext)
                     //settoken(undefined);
                     removetoken('jwt-token');
                     axios.get(`http://localhost:8765/logout`, {withCredentials:true})
-                    setuser(null);
+                    //setuser(null);
+                   // setcart(null);
                   }}
                     to="/signin">Logout</Link> : 
                       <Link to="/signin">SignIn.</Link>
