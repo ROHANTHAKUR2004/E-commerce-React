@@ -15,7 +15,7 @@ function App() {
   
      const [user, setuser] = useState(null);
      const [cart, setcart] = useState({products :[]});
-     const [token, setToken] = useCookies(['jwt-token']);
+     const [ setToken] = useCookies(['jwt-token']);
 
       async function accesstoken(){
       const res = await axios.get(`http://localhost:8765/accesstoken`, {withCredentials: true})
@@ -37,6 +37,7 @@ function App() {
 
      useEffect(()=>{
          load();
+     // eslint-disable-next-line react-hooks/exhaustive-deps
      },[user])
 
   return (

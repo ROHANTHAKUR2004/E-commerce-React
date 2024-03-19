@@ -24,3 +24,8 @@ export function addproductcart(){
     return `http://localhost:8765/carts`;
 
 }
+
+export function updateprodcart(){
+    return `http://localhost:8765/carts/updateProduct`;
+
+}

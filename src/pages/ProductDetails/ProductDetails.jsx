@@ -18,7 +18,7 @@ export default function ProductDetails(){
     async function getprod(id){
          const response = await axios.get(getsingleprod(id))
          setproduct(response.data)
-         //console.log(response.data);
+         
     }
     
     async function addprodttocart(){
@@ -30,11 +30,7 @@ export default function ProductDetails(){
         navigate(`/cart/${user.id}`)
     }
 
-    // function onaddingproduct(){
-    //        console.log("onadd prod")
-    //         setcart({...cart, products :[...cart.products, id]});
-    // }
- 
+    
        useEffect(() =>{
              getprod(id);
        },[])

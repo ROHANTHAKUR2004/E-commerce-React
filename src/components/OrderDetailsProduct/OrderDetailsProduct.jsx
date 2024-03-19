@@ -1,6 +1,8 @@
-export default function OrderDetailsProduct({image, title, price, quantity}){
+export default function OrderDetailsProduct({image, title, price, quantity, onremove}){
 
     const quantityavailable = [1,2,3,4,5,6,7,8,9,10];
+
+    
     return(
         <>
         <div className="order-details-product d-flex flex-row">
@@ -22,7 +24,7 @@ export default function OrderDetailsProduct({image, title, price, quantity}){
                            </select>
                  </div>
             </div>
-            <button className="order-details-product-remove btn btn-danger"> Remove</button>
+            <button className="order-details-product-remove btn btn-danger" onClick={onremove}> Remove</button>
          </div>
         </div>
         <hr/>

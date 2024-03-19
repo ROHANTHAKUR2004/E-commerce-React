@@ -1,21 +1,16 @@
-//import { useContext, useEffect } from 'react'/
 import OrderDetailsProduct from '../../components/OrderDetailsProduct/OrderDetailsProduct'
 import './Cart.css'
-import { useParams } from 'react-router-dom'
-//import axios from 'axios';
-//import { getcardbyuser } from '../../apis/fakestoreprodapis';
-//import CartContext from '../../context/CartContext';
-//import usecart from '../../hooks/useCart';
 import { useContext, useEffect, useState } from 'react';
 import CartContext from '../../context/CartContext';
 import axios from 'axios';
-import { getsingleprod } from '../../apis/fakestoreprodapis';
+import { getsingleprod, updateprodcart } from '../../apis/fakestoreprodapis';
+import UserContext from '../../context/UserContext';
 export default function Cart(){
 
-     //const {userid} = useParams();
-     //console.log(userid)
-     const {cart} = useContext(CartContext)
+    
+     const {cart, setcart} = useContext(CartContext)
      const [products, setproducts] = useState([]);
+     const {user} = useContext(UserContext);
 
 
      async function downloadcardproducts(cart){
@@ -30,13 +25,19 @@ export default function Cart(){
 
 
         const productsPromise = cart.products.map(product => axios.get(getsingleprod(product.productId)))
-       // console.log(productsPromise)
+    
         const productPromiseResponse =  await axios.all(productsPromise);
         const downloadproduct = productPromiseResponse.map(product => ({...product.data , quantity : productQuantitiymapping[product.data.id]}))
-        //nsole.log(downloadproduct)
+
         setproducts(downloadproduct);
      }
   
+
+      async function onprodupdate(productId, quantity){
+        if(!user)  return 
+        const response = await axios.put(updateprodcart(), {userId : user.id , productId, quantity })
+        setcart({...response.data})
+    }
       
      useEffect(()=>{
         //console.log(cart);
@@ -56,6 +57,7 @@ export default function Cart(){
                     image={product.image}
                     price={product.price}
                     quantity={product.quantity}
+                    onremove={()=> onprodupdate(product.id , 0)}
                     />  
                     )}
                    
