@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 //import { getcardbyuser } from '../../apis/fakestoreprodapis';
 //import CartContext from '../../context/CartContext';
 //import usecart from '../../hooks/useCart';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import CartContext from '../../context/CartContext';
 import axios from 'axios';
 import { getsingleprod } from '../../apis/fakestoreprodapis';
@@ -15,14 +15,26 @@ export default function Cart(){
      //const {userid} = useParams();
      //console.log(userid)
      const {cart} = useContext(CartContext)
+     const [products, setproducts] = useState([]);
 
 
      async function downloadcardproducts(cart){
         if(!cart ||  !cart.products) return ;
+
+        //object for product quantity
+
+        const productQuantitiymapping= {};
+        cart.products.forEach(product => {
+            productQuantitiymapping[product.productId] = product.quantity;
+        })
+
+
         const productsPromise = cart.products.map(product => axios.get(getsingleprod(product.productId)))
        // console.log(productsPromise)
         const productPromiseResponse =  await axios.all(productsPromise);
-        console.log(productPromiseResponse)
+        const downloadproduct = productPromiseResponse.map(product => ({...product.data , quantity : productQuantitiymapping[product.data.id]}))
+        //nsole.log(downloadproduct)
+        setproducts(downloadproduct);
      }
   
       
@@ -38,11 +50,15 @@ export default function Cart(){
                 <div className="order-details d-flex flex-column" id="orderDetails">
                     {/* <!-- todo --> */}
                     <div className="order-details-title fw-bold">Order Details</div>
-                    
-                    <OrderDetailsProduct/>
-                    <hr />
-                    <OrderDetailsProduct/>
-                    <hr />
+                    {products.length > 0 &&  products.map(product =>  <OrderDetailsProduct 
+                    key={product.id}
+                    title={product.title}
+                    image={product.image}
+                    price={product.price}
+                    quantity={product.quantity}
+                    />  
+                    )}
+                   
                     {/* <!-- below products are coming from js --> */}
                     
                     
