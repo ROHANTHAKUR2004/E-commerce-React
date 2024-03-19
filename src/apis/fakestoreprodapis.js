@@ -19,3 +19,8 @@ export function getcardbyuser(userid){
     return `http://localhost:8765/carts/user/${userid}`;
 
 }
+
+export function addproductcart(){
+    return `http://localhost:8765/carts`;
+
+}

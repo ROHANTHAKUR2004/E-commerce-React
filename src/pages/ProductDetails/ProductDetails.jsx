@@ -1,27 +1,39 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './ProductDetails.css';
 import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { getsingleprod } from '../../apis/fakestoreprodapis';
+import { addproductcart, getsingleprod } from '../../apis/fakestoreprodapis';
 import CartContext from '../../context/CartContext';
+import UserContext from '../../context/UserContext';
 
 export default function ProductDetails(){
 
     const {id} = useParams();
+    const navigate = useNavigate();
 
     const[product ,setproduct] = useState(null);
-    const {cart, setcart} = useContext(CartContext);
+    const {setcart} = useContext(CartContext);
+    const {user} = useContext(UserContext);
  
     async function getprod(id){
          const response = await axios.get(getsingleprod(id))
          setproduct(response.data)
          //console.log(response.data);
-    } 
-
-    function onaddingproduct(){
-           console.log("onadd prod")
-            setcart({...cart, products :[...cart.products, id]});
     }
+    
+    async function addprodttocart(){
+        if(!user) return ;
+        
+       
+        const response = await axios.put(addproductcart(), {userId : user.id, productId : id})
+        setcart({...response.data})
+        navigate(`/cart/${user.id}`)
+    }
+
+    // function onaddingproduct(){
+    //        console.log("onadd prod")
+    //         setcart({...cart, products :[...cart.products, id]});
+    // }
  
        useEffect(() =>{
              getprod(id);
@@ -52,7 +64,7 @@ export default function ProductDetails(){
                     </div>
 
                     <div 
-                    onClick={onaddingproduct}
+                    onClick={addprodttocart}
                     className="product-details-action btn btn-primary text-decoration-non">
                         Add to cart
                         </div>
